@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from "svelte";
+
   import {
     metrics,
     betsList,
@@ -12,6 +14,13 @@
   let nbrRows = 6;
   let nbrCols = 10;
 
+  onMount(() => {
+    const r = localStorage.getItem("nbrRows");
+    const c = localStorage.getItem("nbrCols");
+    nbrRows = r ? parseInt(r) : nbrRows;
+    nbrCols = c ? parseInt(c) : nbrCols;
+  });
+
   function onDimensionsChange(e) {
     const x = e.target.value;
     if (x < 1 || x > 10) {
@@ -19,8 +28,10 @@
     } else {
       if (e.target.name === "nbrRows") {
         nbrRows = parseInt(x);
+        localStorage.setItem("nbrRows", nbrRows);
       } else if (e.target.name === "nbrCols") {
         nbrCols = parseInt(x);
+        localStorage.setItem("nbrCols", nbrCols);
       }
     }
   }
