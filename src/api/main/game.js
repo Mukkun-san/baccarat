@@ -24,11 +24,12 @@ async function getAllStrategies() {
   return await request(MAIN_API_URL + "/game/strategies/all/", "GET");
 }
 
-async function createGame(user_id, strategies, name) {
+async function createGame(user_id, strategies, name, type) {
   return await request(MAIN_API_URL + "/game/create/", "POST", {
     user_id,
     strategies,
     name,
+    type,
   });
 }
 

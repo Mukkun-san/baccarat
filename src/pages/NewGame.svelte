@@ -52,7 +52,13 @@
     if (!selectedStrategies.length) {
       window.pushToast("Select at least 1 strategy", "danger");
     } else {
-      const resp = await createGame($user._id, selectedStrategies, gameName);
+      const gameType = gameUsingCombos ? "combos" : "strategies";
+      const resp = await createGame(
+        $user._id,
+        selectedStrategies,
+        gameName,
+        gameType
+      );
       if (resp.status === 201) {
         localStorage.setItem("game_id", resp.data._id);
         navigate("/play");
@@ -66,7 +72,7 @@
   let strategies = [],
     defaultMaxLvl = localStorage.getItem("defaultMaxLvl") || 10,
     gameName = "",
-    rollOverMode = true;
+    gameUsingCombos = true;
 </script>
 
 <div style="margin: 0;padding:0;">
@@ -93,12 +99,12 @@
           style="width: 45px;height:20px"
           class="form-check-input mx-2"
           type="checkbox"
-          id="showStrategiesSwitchCheckChecked"
-          checked={rollOverMode}
-          on:change={(e) => (rollOverMode = !rollOverMode)}
+          id="gameUsingCombosCheckBox"
+          checked={gameUsingCombos}
+          on:change={(e) => (gameUsingCombos = !gameUsingCombos)}
         />
-        <label class="form-check-label" for="rollOverModeSwitchCheckChecked">
-          Lvl mode: {rollOverMode ? " rollover" : "continuous"}
+        <label class="form-check-label" for="gameUsingCombosCheckBox">
+          Game mode: {gameUsingCombos ? " Combos" : " Strategies"}
         </label>
       </div>
 
