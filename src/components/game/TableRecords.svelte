@@ -1,4 +1,6 @@
 <script>
+  import { game } from "../../stores/sessionStore";
+
   export let betsList, metrics;
   export let nbrRows, nbrCols, from, to, slice;
 
@@ -115,22 +117,26 @@
                   }}
                 >
                   <span> {typeof c[0] !== "undefined" ? c[0] : ""}</span>
-                  <!-- -
-                  <span
-                    style="color:{c[1]
-                      ? 'green'
-                      : c[1] === null
-                      ? 'white'
-                      : 'red'}"
-                  >
-                    {typeof c[0] === "undefined"
-                      ? ""
-                      : c[1]
-                      ? "W"
-                      : c[1] === null
-                      ? "S"
-                      : "L"}
-                  </span> -->
+                  {#if $game?.type === "combos"}
+                    <span />
+                  {:else}
+                    -
+                    <span
+                      style="color:{c[1]
+                        ? 'green'
+                        : c[1] === null
+                        ? 'white'
+                        : 'red'}"
+                    >
+                      {typeof c[0] === "undefined"
+                        ? ""
+                        : c[1]
+                        ? "W"
+                        : c[1] === null
+                        ? "S"
+                        : "L"}
+                    </span>
+                  {/if}
                 </td>
               {/each}
             </tr>

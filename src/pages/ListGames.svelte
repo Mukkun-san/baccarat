@@ -50,7 +50,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Date</th>
+            <th scope="col">Type</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -63,7 +63,8 @@
             >
               <th scope="row">1</th>
               <td>{game.name}</td>
-              <td>{moment(game.startedOn).fromNow()}</td>
+              <td>{game.type}</td>
+              <!-- <td>{moment(game.startedOn).fromNow()}</td> -->
               <td
                 on:click={() => {
                   deleteGame(game._id);
