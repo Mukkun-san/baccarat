@@ -49,23 +49,19 @@
 
   async function createNewGame() {
     const selectedStrategies = strategies.filter((s) => s.enabled);
-    if (!selectedStrategies.length) {
-      window.pushToast("Select at least 1 strategy", "danger");
+    const gameType = gameUsingCombos ? "combos" : "strategies";
+    const resp = await createGame(
+      $user._id,
+      selectedStrategies,
+      gameName,
+      gameType
+    );
+    if (resp.status === 201) {
+      localStorage.setItem("game_id", resp.data._id);
+      navigate("/play");
+      window.pushToast(resp.msg, "success");
     } else {
-      const gameType = gameUsingCombos ? "combos" : "strategies";
-      const resp = await createGame(
-        $user._id,
-        selectedStrategies,
-        gameName,
-        gameType
-      );
-      if (resp.status === 201) {
-        localStorage.setItem("game_id", resp.data._id);
-        navigate("/play");
-        window.pushToast(resp.msg, "success");
-      } else {
-        window.pushToast(resp.msg, "danger");
-      }
+      window.pushToast(resp.msg, "danger");
     }
   }
 
