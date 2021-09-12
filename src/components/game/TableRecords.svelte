@@ -115,7 +115,7 @@
                   }}
                 >
                   <span> {typeof c[0] !== "undefined" ? c[0] : ""}</span>
-                  -
+                  <!-- -
                   <span
                     style="color:{c[1]
                       ? 'green'
@@ -130,7 +130,7 @@
                       : c[1] === null
                       ? "S"
                       : "L"}
-                  </span>
+                  </span> -->
                 </td>
               {/each}
             </tr>

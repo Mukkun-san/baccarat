@@ -159,6 +159,18 @@
               </h5>
             </div>
             <br />
+            {#if combo?.newStat?.active}
+              <h5 class="text-primary text-center">
+                new metric activated by: <b>
+                  9 {combo.newStat.WorL ? "WINS" : "LOSSES"}
+                </b>
+              </h5>
+              <h5 class="text-primary text-center">
+                <span class="mx-5"> lvl: <b>{combo.newStat.lvl}</b> </span> next
+                bet on: <b> {combo.newStat.target} </b>
+              </h5>
+            {/if}
+            <br />
 
             <div class="stats">
               <div class="text-center mb-3">
@@ -184,17 +196,6 @@
                   ).length}
                 </h5>
               </div>
-              {#if combo?.metrics && Object.keys(combo?.metrics)?.length}
-                <div class="text-center mb-3">
-                  <h5 class="d-inline mx-3 text-dark">Wins btw 4 Ls:</h5>
-                  <h5 class="d-inline mx-3 text-dark">
-                    MIN: {combo?.metrics?.winsBetweenLossess?.min ?? 0}
-                  </h5>
-                  <h5 class="d-inline mx-3 text-dark">
-                    MAX: {combo?.metrics?.winsBetweenLossess?.max ?? 0}
-                  </h5>
-                </div>
-              {/if}
               {#if combo?.metrics && Object?.keys(combo?.metrics)?.length}
                 <div class="text-center mb-3">
                   <h5 class="d-inline mx-3 mx-5">
@@ -220,7 +221,7 @@
             {#if combo?.strategies?.length}
               {#each combo.strategies as S, i}
                 <div class="my-1">
-                  <Strategy bind:strategies={$strategiesData} {S} {i} />
+                  <Strategy {S} {i} />
                 </div>
               {/each}
             {/if}
