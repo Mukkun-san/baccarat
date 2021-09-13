@@ -12,6 +12,8 @@
 
   import { saveRecordDB, fetchGame, undoRecordDB } from "../../api/main/game";
 
+  let newMetric = { pctBs: 0, pctPs: 0, Ps: 0, Bs: 0 };
+
   async function addRecord() {
     if (busy) {
       return window.pushToast("recorder busy", "danger");
@@ -23,6 +25,9 @@
       return;
     }
     $game = response.data;
+    newMetric = $game.stats;
+    console.log(newMetric);
+    console.log(newMetric);
     $round = $betsList.length + 1;
     $betsList = $game.bets;
     $metrics = $game.metrics.data.rightAndWrongs.pcts;
@@ -92,9 +97,14 @@
         type="button"
       >
         P
-        <small style="margin-left: 10px;">
-          {$stats.P_next_count} - {"  " + $stats.P_next_pct + "%"}</small
-        >
+        {#if $game?.type === "combos"}
+          <small style="margin-left: 10px;">
+            {newMetric?.Ps} - {"  " + newMetric?.pctPs + "%"}</small
+          >
+        {:else}<small style="margin-left: 10px;">
+            {$stats.P_next_count} - {"  " + $stats.P_next_pct + "%"}</small
+          >
+        {/if}
       </button>
       <h5 style="position: absolute;margin-top: -80px;left: 0;">
         {$stats.pct_avg_P}%
@@ -112,9 +122,16 @@
         type="button"
       >
         B
-        <small style="margin-left: 10px;">
-          {$stats.B_next_count} - {"  " + $stats.B_next_pct + "%"}</small
-        >
+
+        {#if $game?.type === "combos"}
+          <small style="margin-left: 10px;">
+            {newMetric?.Bs} - {"  " + newMetric?.pctBs + "%"}</small
+          >
+        {:else}
+          <small style="margin-left: 10px;">
+            {$stats.B_next_count} - {"  " + $stats.B_next_pct + "%"}</small
+          >
+        {/if}
       </button>
       <h5 style="position: absolute;margin-top: -80px;right: 0;">
         {$stats.pct_avg_B}%
