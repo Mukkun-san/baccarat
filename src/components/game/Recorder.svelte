@@ -11,8 +11,16 @@
   } from "../../stores/sessionStore";
 
   import { saveRecordDB, fetchGame, undoRecordDB } from "../../api/main/game";
+  import { onMount } from "svelte";
 
   let newMetric = { pctBs: 0, pctPs: 0, Ps: 0, Bs: 0 };
+
+  onMount(async () => {
+    const resp = await fetchGame(game_id);
+    const game = resp?.data;
+    console.log(game);
+    newMetric = game.stats;
+  });
 
   async function addRecord() {
     if (busy) {
