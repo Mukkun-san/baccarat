@@ -18,7 +18,6 @@
   onMount(async () => {
     const resp = await fetchGame(game_id);
     const game = resp?.data;
-    console.log(game);
     newMetric = game.stats;
   });
 

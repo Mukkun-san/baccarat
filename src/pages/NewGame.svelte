@@ -68,7 +68,7 @@
   let strategies = [],
     defaultMaxLvl = localStorage.getItem("defaultMaxLvl") || 10,
     gameName = "",
-    gameUsingCombos = true;
+    gameUsingCombos = false;
 </script>
 
 <div style="margin: 0;padding:0;">
